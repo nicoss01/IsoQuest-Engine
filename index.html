@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Moteur Iso XML</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #111; }
+        #game-container { position: relative; width: 100%; height: 100%; }
+        #game-ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        
+        /* Styles pour les éléments générés par le moteur */
+        .game-btn {
+            background: #444; color: #fff; padding: 10px 20px; border: 2px solid #fff;
+            cursor: pointer; pointer-events: auto; font-family: sans-serif;
+        }
+        .game-btn:hover { background: #666; }
+    </style>
+    <link rel="stylesheet" href="isoquest.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="game-ui-layer"></div>
+    </div>
+
+    <script src="isoquest.lib.js"></script>
+    
+    <script>
+        // Lancement du jeu
+        window.onload = () => {
+            // On suppose que le XML s'appelle 'game.xml' et est dans le même dossier
+            const game = new IsoEngine('game-container', 'game.xml',true);
+        };
+    </script>
+</body>
+</html>

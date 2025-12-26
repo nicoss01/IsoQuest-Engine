@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene id="level1" type="game" width="15" height="15" background="ground" east="level2">
+    <Assets>
+        <Asset id="hero_idle" type="sprite" src="assets/hero_idle.png" placeholder="#3498db" />
+        <Asset id="hero_walk" type="sprite" src="assets/hero_walk.png" placeholder="#2980b9" />
+    </Assets>
+    <HUD>
+        <Text content="Niveau Joueur: {playerLevel}" top="10" left="10" color="#FFF" size="20px" weight="bold"/>
+        <Text content="Or: {gold}" top="40" left="10" color="#FFD700" size="16px" weight="bold"/>
+        <Text content="Inventaire: {inventory}" top="70" left="10" color="#AAA" size="14px" />
+        <Button content="Retour au Menu" top="10" right="10" width="150" height="30" hoverBackground="#555" background="#333" textColor="#FFF" hoverTextColor="#FFF"
+                action="loadScene:menu"
+                style="padding:10px; background:#333; color:white; font-size:14px;" />
+    </HUD>
+
+    <Objects>
+        <Player x="2" y="2" asset="hero" speed="4" placeholder="#3498db">
+            <Attachments>
+                <Block asset="icon_crown" offset-y="-70" />
+                <Text content="Lvl {playerLevel}" color="#FFF" offset-y="-90" font="14px Arial" background="rgba(0,0,0,0.5)" />
+            </Attachments>
+            <Animation>
+                <Frame asset="hero_idle" state="idle" />
+                <Frame asset="hero_walk" state="walk" />
+            </Animation>
+        </Player>
+
+        <!-- Objet simple avec ajout d'item -->
+        <Object x="3" y="3" asset="treasure" collision="true" placeholder="#FFD700" >
+            <Interaction action="addItem:key:1" />
+            <Attachments>
+                <Text content="Clé" color="#FFD700" offset-y="-80" />
+            </Attachments>
+        </Object>
+
+        <!-- Objet avec condition: nécessite une clé pour interagir -->
+        <Object x="5" y="5" asset="shrine" collision="true" placeholder="#e67e22" >
+            <Interaction action="addVar:playerLevel:1" failMessage="Vous avez besoin d'une clé !">
+                <Condition type="hasItem" item="key" quantity="1" />
+            </Interaction>
+            <Attachments>
+                <Text content="Autel d'XP (clé requise)" color="#FFD700" offset-y="-80" />
+            </Attachments>
+        </Object>
+
+        <!-- Objet avec condition complexe (ET) -->
+        <Object x="7" y="3" asset="treasure" collision="true" placeholder="#e74c3c" >
+            <Interaction action="addVar:gold:500" failMessage="Niveau trop bas ou pas de clé">
+                <Condition type="and">
+                    <Condition type="hasItem" item="key" quantity="1" />
+                    <Condition type="varGreaterThan" var="playerLevel" value="0" />
+                </Condition>
+            </Interaction>
+            <Attachments>
+                <Text content="Coffre rare" color="#e74c3c" offset-y="-80" />
+            </Attachments>
+        </Object>
+
+        <Object x="8" y="5" asset="wall" collision="true" />
+        <Object x="8" y="6" asset="wall" collision="true" />
+        <Object x="8" y="7" asset="tree" collision="true" />
+
+
+        <Mob x="10" y="10" asset="slime" speed="2" behavior="passive" wander-radius="3">
+            <Attachments>
+                <Text content="Slime (Passif)" color="#afa" offset-y="-40" size="10px" />
+            </Attachments>
+        </Mob>
+
+        <Spawner asset="goblin" count="3" speed="3" behavior="aggressive" aggro-radius="2" wander-radius="5" placeholder="#27ae60">
+            <Attachments>
+                <Text content="!" color="#F00" offset-y="-60" weight="bold" />
+            </Attachments>
+        </Spawner>
+    </Objects>
+</Scene>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene id="level2" type="game" width="15" height="15" background="ground" west="level1">
+    <HUD>
+        <Text content="Niveau 2 - Or: {gold}" top="10" left="10" color="#FFD700" size="20px" weight="bold"/>
+        <Button content="Retour au Menu" top="10" right="10" width="150" height="30" hoverBackground="#555" background="#333" textColor="#FFF" hoverTextColor="#FFF"
+                action="loadScene:menu"
+                style="padding:10px; background:#333; color:white; font-size:14px;" />
+    </HUD>
+
+    <Objects>
+        <Player x="2" y="7" asset="hero" speed="4" placeholder="#3498db">
+            <Attachments>
+                <Text content="Hero" color="#FFF" offset-y="-50" font="14px Arial" background="rgba(0,0,0,0.5)" />
+            </Attachments>
+        </Player>
+
+        <Object x="7" y="7" asset="treasure" collision="true" placeholder="#FFD700" >
+            <Interaction action="addVar:gold:100" />
+            <Attachments>
+                <Text content="Coffre (+100 Or)" color="#FFD700" offset-y="-80" />
+            </Attachments>
+        </Object>
+
+        <Object x="10" y="5" asset="wall" collision="true" />
+        <Object x="10" y="6" asset="wall" collision="true" />
+        <Object x="10" y="7" asset="wall" collision="true" />
+        <Object x="10" y="8" asset="wall" collision="true" />
+        <Object x="10" y="9" asset="wall" collision="true" />
+    </Objects>
+</Scene>
